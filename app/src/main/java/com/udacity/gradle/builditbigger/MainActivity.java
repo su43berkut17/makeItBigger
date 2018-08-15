@@ -2,11 +2,13 @@ package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,8 +19,10 @@ import com.su43berkut17.nanodegree.javalibtelljoke.TellJokeLib;
 import com.su43berkut17.nanodegree.jokedisplayed.JokeDisplayedActivity;
 import com.udacity.gradle.builditbigger.IdlingResource.IdlingResourceAsync;
 
-public class MainActivity extends AppCompatActivity implements MessageDelayer.DelayerCallback{
+public class MainActivity extends AppCompatActivity implements MessageDelayer.DelayerCallback, EndpointsAsyncTask.InterfaceBackActivity{
+    //
     @Nullable private IdlingResourceAsync mIdlingResourceAsync;
+    @Nullable private String mTextWithJoke;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +57,18 @@ public class MainActivity extends AppCompatActivity implements MessageDelayer.De
         TellJokeLib jokeProvider=new TellJokeLib();
         String jokeSend=jokeProvider.getJoke();
 
-        MessageDelayer.processMessage(jokeSend,this,mIdlingResourceAsync);
+        MessageDelayer.processMessage(mTextWithJoke,this,mIdlingResourceAsync);
 
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, jokeSend));
+        //AsyncTask mAsyncTask= new EndpointsAsyncTask();
+        //mAsyncTask.execute(new Pair<Context, String>(this, jokeSend));
+        new EndpointsAsyncTask().execute(new Pair<Context, String>(this,jokeSend));
     }
 
     @Override
     public void onDone(String text) {
         //we see how to assess
+        Log.i("TEST","we will initiate the new intent");
+        mTextWithJoke=text;
     }
 
     @VisibleForTesting
@@ -70,5 +78,20 @@ public class MainActivity extends AppCompatActivity implements MessageDelayer.De
             mIdlingResourceAsync=new IdlingResourceAsync();
         }
         return mIdlingResourceAsync;
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public void getResults(String result) {
+        //we send the joke as an extra intent
+        Intent intent=new Intent(this, JokeDisplayedActivity.class);
+
+        //extras
+        intent.putExtra("JOKE",result);
+        this.startActivity(intent);
     }
 }
