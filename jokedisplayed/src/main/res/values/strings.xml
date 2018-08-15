@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">JokeDisplayed</string>
+    <string name="jokeTitle">Joke!</string>
+    <string name="jokeContentPlaceholder">This is a joke LOL</string>
+</resources>
