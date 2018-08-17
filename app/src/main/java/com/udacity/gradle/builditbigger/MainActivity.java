@@ -17,11 +17,10 @@ import android.widget.Toast;
 import android.support.v4.util.Pair;
 import com.su43berkut17.nanodegree.javalibtelljoke.TellJokeLib;
 import com.su43berkut17.nanodegree.jokedisplayed.JokeDisplayedActivity;
-import com.udacity.gradle.builditbigger.IdlingResource.IdlingResourceAsync;
 
-public class MainActivity extends AppCompatActivity implements MessageDelayer.DelayerCallback, EndpointsAsyncTask.InterfaceBackActivity{
+public class MainActivity extends AppCompatActivity implements EndpointsAsyncTask.InterfaceBackActivity{
     //
-    @Nullable private IdlingResourceAsync mIdlingResourceAsync;
+    //@Nullable private IdlingResourceAsync mIdlingResourceAsync;
     @Nullable private String mTextWithJoke;
 
     @Override
@@ -57,14 +56,14 @@ public class MainActivity extends AppCompatActivity implements MessageDelayer.De
         TellJokeLib jokeProvider=new TellJokeLib();
         String jokeSend=jokeProvider.getJoke();
 
-        MessageDelayer.processMessage(mTextWithJoke,this,mIdlingResourceAsync);
+        //MessageDelayer.processMessage(mTextWithJoke,this,mIdlingResourceAsync);
 
         //AsyncTask mAsyncTask= new EndpointsAsyncTask();
         //mAsyncTask.execute(new Pair<Context, String>(this, jokeSend));
         new EndpointsAsyncTask().execute(new Pair<Context, String>(this,jokeSend));
     }
 
-    @Override
+    /*@Override
     public void onDone(String text) {
         //we see how to assess
         Log.i("TEST","we will initiate the new intent");
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements MessageDelayer.De
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
-    }
+    }*/
 
     @Override
     public void getResults(String result) {
