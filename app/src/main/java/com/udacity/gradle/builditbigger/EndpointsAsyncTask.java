@@ -14,6 +14,8 @@ import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
 
 import java.io.IOException;
 
+import com.su43berkut17.nanodegree.javalibtelljoke.TellJokeLib;
+
 public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
     private static MyApi myApiService = null;
     private Context context;
@@ -42,11 +44,12 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
         //Log.i("ENDPOINTS","the parameters length is "+params[0].second);
         context = params[0].first;
         //String name = params[0].second;
-        String name="test";
+        //String name="test";
         //Log.i("ENDPOINTS","the parameter received is "+name);
 
         //we get the joke from the java library
-
+        TellJokeLib jokeProvider=new TellJokeLib();
+        String name=jokeProvider.getJoke();
 
         try {
             //we initiate the interface

@@ -6,8 +6,6 @@ import com.google.api.server.spi.config.ApiNamespace;
 
 import javax.inject.Named;
 
-import com.su43berkut17.nanodegree.javalibtelljoke.TellJokeLib;
-
 /** An endpoint class we are exposing */
 @Api(
         name = "myApi",
@@ -24,11 +22,7 @@ public class MyEndpoint {
     public MyBean sayHi(@Named("name") String name) {
         MyBean response = new MyBean();
 
-        //we get the joke from the java
-        TellJokeLib jokeProvider=new TellJokeLib();
-        String jokeSend=jokeProvider.getJoke();
-
-        response.setData("Hi, " + jokeSend);
+        response.setData("Hi, " + name);
 
         return response;
     }

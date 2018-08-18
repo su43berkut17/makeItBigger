@@ -66,6 +66,7 @@ dependencies {
 
     //external java project
     //implementation project(':backend')
+    implementation project(':javaLibTellJoke')
 
     //external android library
     implementation project (':jokedisplayed')
