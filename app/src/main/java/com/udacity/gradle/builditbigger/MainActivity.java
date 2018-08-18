@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements EndpointsAsyncTas
         //MyEndpoint endpoint=new MyEndpoint();
         //String jokeSend=(endpoint.GetJoke()).getData();
 
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this,""));
+        new EndpointsAsyncTask().execute(this);
     }
 
     @Override

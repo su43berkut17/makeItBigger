@@ -20,41 +20,55 @@ import static junit.framework.Assert.assertTrue;
 public class AsyncSimpleTest implements EndpointsAsyncTask.InterfaceBackActivity{
 
     //String SENT="THIS IS THE TEXT SENT ON THE ASYNCTASK";
+    private static final String TAG="TEST_ASYNC";
     Context context;
 
     @Test
     public void testAsyncEndPoints() throws InterruptedException{
-        assertTrue(true);
+        //assertTrue(true);
+        //try {
+            final CountDownLatch latch = new CountDownLatch(1);
+            context = InstrumentationRegistry.getContext();
 
-        final CountDownLatch latch=new CountDownLatch(1);
-        context= InstrumentationRegistry.getContext();
+            EndpointsAsyncTask testTask = new EndpointsAsyncTask() {
+                @Override
+                protected void onPostExecute(String result) {
+                    try {
+                        //assertNotNull(result);
+                        assertTrue(result=="");
+                    } catch (AssertionError e) {
+                        Log.i(TAG, "The received text has a null value " + e.getStackTrace().toString());
+                        throw e;
+                    }
 
-        EndpointsAsyncTask testTask = new EndpointsAsyncTask(){
-            @Override
-            protected void onPostExecute(String result){
-                assertNotNull(result);
-                if (result!=null){
+                    if (result != null) {
                     /*String newSent="Hi, "+"";
 
                     Log.i("TEST","comparing 1:"+result+".");
                     Log.i("TEST","comparing 2:"+newSent+".");*/
-                    Log.i("TEST","This is the received text "+result);
+                        Log.i(TAG, "This is the received text " + result);
 
-                    Boolean condition;
-                    if (result.length()>0){
-                        condition=true;
-                    }else{
-                        condition=false;
+                        Boolean condition;
+                        if (result.length() > 0) {
+                            condition = true;
+                        } else {
+                            condition = false;
+                        }
+                        try {
+                            assertTrue(condition);
+                        } catch (AssertionError e) {
+                            Log.i(TAG, "The received text is empty " + e.getMessage());
+                        }
+                        latch.countDown();
                     }
-
-                    assertTrue(condition);
-                    latch.countDown();
                 }
-            }
-        };
+            };
 
-        testTask.execute(new Pair<Context, String>(context,"TEST"));
-        latch.await();
+            testTask.execute(context);
+            latch.await();
+        /*}catch (InterruptedException e){
+            Log.i(TAG,"Interrupted exception "+e.getStackTrace().toString());
+        }*/
     }
 
     @Override

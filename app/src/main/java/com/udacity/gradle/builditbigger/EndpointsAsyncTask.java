@@ -14,13 +14,13 @@ import com.udacity.gradle.builditbigger.backend.returnJoke.ReturnJoke;
 
 import java.io.IOException;
 
-public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
+public class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
     private static ReturnJoke myApiService = null;
     private Context context;
     private InterfaceBackActivity mBackActivity;
 
     @Override
-    protected String doInBackground(Pair<Context, String>... params) {
+    protected String doInBackground(Context... recContext) {
         if(myApiService == null) {  // Only do this once
             ReturnJoke.Builder builder = new ReturnJoke.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
@@ -40,7 +40,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
         }
 
         //Log.i("ENDPOINTS","the parameters length is "+params[0].second);
-        context = params[0].first;
+        context = recContext[0];
         //String name = params[0].second;
         //String name="test";
         //Log.i("ENDPOINTS","the parameter received is "+name);
