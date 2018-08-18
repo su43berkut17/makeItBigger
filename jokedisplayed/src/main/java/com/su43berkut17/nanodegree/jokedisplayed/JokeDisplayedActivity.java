@@ -17,11 +17,14 @@ public class JokeDisplayedActivity extends AppCompatActivity {
 
         Intent intent=getIntent();
 
-        String jokeRetrieved=intent.getStringExtra(NAME_RETRIEVED);
+        if (intent.hasExtra(NAME_RETRIEVED)) {
 
-        mJokeText=(TextView)findViewById(R.id.tvJokeContent);
+            String jokeRetrieved = intent.getStringExtra(NAME_RETRIEVED);
 
-        mJokeText.setText(jokeRetrieved);
+            mJokeText = (TextView) findViewById(R.id.tvJokeContent);
+
+            mJokeText.setText(jokeRetrieved);
+        }
 
     }
 
