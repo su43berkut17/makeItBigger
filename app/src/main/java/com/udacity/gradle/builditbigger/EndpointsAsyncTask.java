@@ -50,6 +50,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
         //we get the joke from the java library
         TellJokeLib jokeProvider=new TellJokeLib();
         String name=jokeProvider.getJoke();
+        Log.i("Endpoints","The joke is "+name);
 
         try {
             //we initiate the interface

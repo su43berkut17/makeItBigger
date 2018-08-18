@@ -9,7 +9,7 @@ import android.util.Log;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.udacity.gradle.builditbigger.EndpointsAsyncTask;
+//import com.udacity.gradle.builditbigger.EndpointsAsyncTask;
 
 import java.util.concurrent.CountDownLatch;
 
@@ -19,7 +19,7 @@ import static junit.framework.Assert.assertTrue;
 @RunWith(AndroidJUnit4.class)
 public class AsyncSimpleTest implements EndpointsAsyncTask.InterfaceBackActivity{
 
-    String SENT="THIS IS THE TEXT SENT ON THE ASYNCTASK";
+    //String SENT="THIS IS THE TEXT SENT ON THE ASYNCTASK";
     Context context;
 
     @Test
@@ -34,13 +34,14 @@ public class AsyncSimpleTest implements EndpointsAsyncTask.InterfaceBackActivity
             protected void onPostExecute(String result){
                 assertNotNull(result);
                 if (result!=null){
-                    String newSent="Hi, "+SENT;
+                    /*String newSent="Hi, "+"";
 
                     Log.i("TEST","comparing 1:"+result+".");
-                    Log.i("TEST","comparing 2:"+newSent+".");
+                    Log.i("TEST","comparing 2:"+newSent+".");*/
+                    Log.i("TEST","This is the received text "+result);
 
                     Boolean condition;
-                    if (result.length()==newSent.length()){
+                    if (result.length()>0){
                         condition=true;
                     }else{
                         condition=false;
@@ -52,7 +53,7 @@ public class AsyncSimpleTest implements EndpointsAsyncTask.InterfaceBackActivity
             }
         };
 
-        testTask.execute(new Pair<Context, String>(context,SENT));
+        testTask.execute(new Pair<Context, String>(context,"TEST"));
         latch.await();
     }
 
