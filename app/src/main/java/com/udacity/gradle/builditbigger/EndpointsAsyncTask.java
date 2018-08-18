@@ -10,21 +10,19 @@ import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 import android.support.v4.util.Pair;
 import android.util.Log;
 
-import com.udacity.gradle.builditbigger.backend.myApi.MyApi;
+import com.udacity.gradle.builditbigger.backend.returnJoke.ReturnJoke;
 
 import java.io.IOException;
 
-import com.su43berkut17.nanodegree.javalibtelljoke.TellJokeLib;
-
 public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
-    private static MyApi myApiService = null;
+    private static ReturnJoke myApiService = null;
     private Context context;
     private InterfaceBackActivity mBackActivity;
 
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
         if(myApiService == null) {  // Only do this once
-            MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
+            ReturnJoke.Builder builder = new ReturnJoke.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                     // options for running against local devappserver
                     // - 10.0.2.2 is localhost's IP address in Android emulator
@@ -48,14 +46,16 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
         //Log.i("ENDPOINTS","the parameter received is "+name);
 
         //we get the joke from the java library
-        TellJokeLib jokeProvider=new TellJokeLib();
-        String name=jokeProvider.getJoke();
-        Log.i("Endpoints","The joke is "+name);
+        //TellJokeLib jokeProvider=new TellJokeLib();
+        //String name=jokeProvider.getJoke();
+        //Log.i("Endpoints","The joke is "+name);
 
         try {
             //we initiate the interface
-            return myApiService.sayHi(name).execute().getData();
+            //return myApiService.sayHi("").execute().getData();
             //return myApiService.sayHi().execute().getData();
+            //MyBean bean= myApiService.returnJoke().execute();
+            return myApiService.returnJoke().execute().getData();
         } catch (IOException e) {
             return e.getMessage();
         }
