@@ -34,8 +34,7 @@ public class AsyncSimpleTest implements EndpointsAsyncTask.InterfaceBackActivity
                 @Override
                 protected void onPostExecute(String result) {
                     try {
-                        //assertNotNull(result);
-                        assertTrue(result=="");
+                        assertNotNull(result);
                     } catch (AssertionError e) {
                         Log.i(TAG, "The received text has a null value " + e.getStackTrace().toString());
                         throw e;
