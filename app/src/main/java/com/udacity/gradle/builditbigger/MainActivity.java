@@ -15,13 +15,14 @@ import android.view.View;
 import android.widget.Toast;
 
 import android.support.v4.util.Pair;
-import com.su43berkut17.nanodegree.javalibtelljoke.TellJokeLib;
+//import com.su43berkut17.nanodegree.javalibtelljoke.TellJokeLib;
 import com.su43berkut17.nanodegree.jokedisplayed.JokeDisplayedActivity;
+//import com.udacity.gradle.builditbigger.backend.MyEndpoint;
 
 public class MainActivity extends AppCompatActivity implements EndpointsAsyncTask.InterfaceBackActivity{
     //
     //@Nullable private IdlingResourceAsync mIdlingResourceAsync;
-    @Nullable private String mTextWithJoke;
+    //@Nullable private String mTextWithJoke;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,36 +54,14 @@ public class MainActivity extends AppCompatActivity implements EndpointsAsyncTas
     }
 
     public void tellJoke(View view) {
-        TellJokeLib jokeProvider=new TellJokeLib();
-        String jokeSend=jokeProvider.getJoke();
+        //TellJokeLib jokeProvider=new TellJokeLib();
+        //String jokeSend=jokeProvider.getJoke();
+        //fetch the joke from the end point
+        //MyEndpoint endpoint=new MyEndpoint();
+        //String jokeSend=(endpoint.GetJoke()).getData();
 
-        //MessageDelayer.processMessage(mTextWithJoke,this,mIdlingResourceAsync);
-
-        //AsyncTask mAsyncTask= new EndpointsAsyncTask();
-        //mAsyncTask.execute(new Pair<Context, String>(this, jokeSend));
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this,jokeSend));
+        new EndpointsAsyncTask().execute(new Pair<Context, String>(this,""));
     }
-
-    /*@Override
-    public void onDone(String text) {
-        //we see how to assess
-        Log.i("TEST","we will initiate the new intent");
-        mTextWithJoke=text;
-    }
-
-    @VisibleForTesting
-    @NonNull
-    public IdlingResourceAsync getmIdlingResourceAsync(){
-        if (mIdlingResourceAsync==null){
-            mIdlingResourceAsync=new IdlingResourceAsync();
-        }
-        return mIdlingResourceAsync;
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }*/
 
     @Override
     public void getResults(String result) {
@@ -90,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements EndpointsAsyncTas
         Intent intent=new Intent(this, JokeDisplayedActivity.class);
 
         //extras
-        intent.putExtra("JOKE",result);
+        intent.putExtra(JokeDisplayedActivity.NAME_RETRIEVED,result);
         this.startActivity(intent);
     }
 }

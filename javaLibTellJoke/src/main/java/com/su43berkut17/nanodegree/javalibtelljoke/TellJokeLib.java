@@ -20,7 +20,7 @@ public class TellJokeLib {
     public String getJoke(){
         //we create a random number to pick the joke
         Random rand = new Random();
-        int number=rand.nextInt(10)+1;
+        int number=rand.nextInt(jokeList.size());
 
         return jokeList.get(number);
     }

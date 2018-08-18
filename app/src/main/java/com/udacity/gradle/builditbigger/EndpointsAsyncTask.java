@@ -39,14 +39,19 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
             myApiService = builder.build();
         }
 
-        Log.i("ENDPOINTS","the parameters length is "+params[0].second);
+        //Log.i("ENDPOINTS","the parameters length is "+params[0].second);
         context = params[0].first;
-        String name = params[0].second;
-        Log.i("ENDPOINTS","the parameter received is "+name);
+        //String name = params[0].second;
+        String name="test";
+        //Log.i("ENDPOINTS","the parameter received is "+name);
+
+        //we get the joke from the java library
+
 
         try {
             //we initiate the interface
             return myApiService.sayHi(name).execute().getData();
+            //return myApiService.sayHi().execute().getData();
         } catch (IOException e) {
             return e.getMessage();
         }
@@ -61,6 +66,8 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
         //extras
         intent.putExtra("JOKE",result);
         context.startActivity(intent);*/
+
+        Log.i("EndpointsAsync","the result is "+result);
 
         mBackActivity=(InterfaceBackActivity) context;
         mBackActivity.getResults(result);

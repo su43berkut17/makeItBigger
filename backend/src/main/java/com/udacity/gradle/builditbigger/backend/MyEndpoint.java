@@ -6,6 +6,8 @@ import com.google.api.server.spi.config.ApiNamespace;
 
 import javax.inject.Named;
 
+import com.su43berkut17.nanodegree.javalibtelljoke.TellJokeLib;
+
 /** An endpoint class we are exposing */
 @Api(
         name = "myApi",
@@ -17,14 +19,43 @@ import javax.inject.Named;
         )
 )
 public class MyEndpoint {
-
     /** A simple endpoint method that takes a name and says Hi back */
     @ApiMethod(name = "sayHi")
     public MyBean sayHi(@Named("name") String name) {
         MyBean response = new MyBean();
-        response.setData("Hi, " + name);
+
+        //we get the joke from the java
+        TellJokeLib jokeProvider=new TellJokeLib();
+        String jokeSend=jokeProvider.getJoke();
+
+        response.setData("Hi, " + jokeSend);
 
         return response;
     }
 
+    /*@ApiMethod(name="sayHi")
+    public MyBean sayHi() {
+        MyBean response = new MyBean();
+
+        //we get the joke
+        TellJokeLib jokeProvider=new TellJokeLib();
+        String jokeSend=jokeProvider.getJoke();
+
+        response.setData("Hi, " + jokeSend);
+
+        return response;
+    }*/
+
+    /*@ApiMethod(name="getJoke")
+    public MyBean GetJoke(){
+        TellJokeLib jokeProvider=new TellJokeLib();
+        String jokeSend=jokeProvider.getJoke();
+
+        MyBean returnedBean;
+        returnedBean=sayHi(jokeSend);
+
+        //String returnedString=returnedBean.getData();
+
+        return returnedBean;
+    }*/
 }
