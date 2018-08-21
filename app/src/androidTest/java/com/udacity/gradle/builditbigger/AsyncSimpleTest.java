@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.util.Pair;
+import android.text.TextUtils;
 import android.util.Log;
 
 import org.junit.Test;
@@ -15,6 +16,7 @@ import java.util.concurrent.CountDownLatch;
 
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.assertFalse;
 
 @RunWith(AndroidJUnit4.class)
 public class AsyncSimpleTest implements EndpointsAsyncTask.InterfaceBackActivity{
@@ -47,7 +49,13 @@ public class AsyncSimpleTest implements EndpointsAsyncTask.InterfaceBackActivity
                     Log.i("TEST","comparing 2:"+newSent+".");*/
                         Log.i(TAG, "This is the received text " + result);
 
-                        Boolean condition;
+                        try {
+                            assertFalse(TextUtils.isEmpty(result));
+                        }catch (AssertionError e){
+                            Log.i(TAG, "The received text is empty " + e.getMessage());
+                        }
+
+                        /*Boolean condition;
                         if (result.length() > 0) {
                             condition = true;
                         } else {
@@ -57,7 +65,7 @@ public class AsyncSimpleTest implements EndpointsAsyncTask.InterfaceBackActivity
                             assertTrue(condition);
                         } catch (AssertionError e) {
                             Log.i(TAG, "The received text is empty " + e.getMessage());
-                        }
+                        }*/
                         latch.countDown();
                     }
                 }
