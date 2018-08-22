@@ -52,7 +52,8 @@ public class AsyncSimpleTest implements EndpointsAsyncTask.InterfaceBackActivity
                         try {
                             assertFalse(TextUtils.isEmpty(result));
                         }catch (AssertionError e){
-                            Log.i(TAG, "The received text is empty " + e.getMessage());
+                            Log.i(TAG, "The received text is empty ");
+                            throw e;
                         }
 
                         /*Boolean condition;
